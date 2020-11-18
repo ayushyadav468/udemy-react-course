@@ -1,10 +1,14 @@
 import React from 'react';
+import './Person.css';
 
-const person = () => {
+const person = (props) => {
   return (
-    <p>
-      I am a Person and I am {Math.floor(Math.random() * (25 - 20) + 20)} old
-    </p>
+    <div>
+      <p>
+        My name is {props.name}. I am {props.age} old.
+      </p>
+      <ul>{props.children}</ul>
+    </div>
   );
 };
 
