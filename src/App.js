@@ -4,45 +4,55 @@ import Person from './Person/Person';
 
 class App extends Component {
   state = {
-    person: [
-      { name: 'Ayush', age: 21 },
-      { name: 'Aryaman', age: 18 },
-      { name: 'Kavita', age: 42 },
+    persons: [
+      { id: '1', name: 'Example1', age: 21 },
+      { id: '2', name: 'Example2', age: 23 },
+      { id: '3', name: 'Example3', age: 25 },
     ],
-    showPerson: false,
+    showPerson: true,
   };
 
+  // Toggle the view of Person. By default it's true
   showPersonHandler = () =>
     this.setState({
       showPerson: !this.state.showPerson,
     });
 
-  nameChangeHandler = (event) =>
-    this.setState({
-      person: [
-        { name: 'Ayush', age: 21 },
-        { name: event.target.value, age: 18 },
-        { name: 'Kavita', age: 42 },
-      ],
+  // Delete a person
+  deletePersonHandler = (newIndex) => {
+    const person = [...this.state.persons];
+    person.splice(newIndex, 1);
+    this.setState({ persons: person });
+  };
+
+  // Changes the name of Person
+  nameChangeHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex((p) => {
+      return p.id === id;
     });
 
-  deletePersonHandler = (newIndex) => {
-    const person = [...this.state.person];
-    person.splice(newIndex, 1);
-    this.setState({ person: person });
+    const personToBeUpdated = { ...this.state.persons[personIndex] };
+    personToBeUpdated.name = event.target.value;
+
+    const updatedPerson = [...this.state.persons];
+    updatedPerson[personIndex] = personToBeUpdated;
+
+    this.setState({ persons: updatedPerson });
   };
 
   render() {
-    let persons = null;
+    let person = null;
     if (this.state.showPerson) {
-      persons = (
+      person = (
         <div>
-          {this.state.person.map((person, index) => {
+          {this.state.persons.map((person, index) => {
             return (
               <Person
+                key={person.id}
                 name={person.name}
                 age={person.age}
                 click={() => this.deletePersonHandler(index)}
+                changed={(event) => this.nameChangeHandler(event, person.id)}
               />
             );
           })}
@@ -56,7 +66,7 @@ class App extends Component {
         <button className="btn" onClick={this.showPersonHandler}>
           Switch Button
         </button>
-        {persons}
+        {person}
       </div>
     );
   }

@@ -1,10 +1,10 @@
 .Person {
   display: block;
-  border: 0.5px solid grey;
-  box-shadow: 5px 2px 5px 2px grey;
+  border: 0.5px solid rgb(240, 240, 240);
+  box-shadow: 5px 2px 5px 2px rgb(201, 201, 201);
   margin: 50px auto;
   padding-bottom: 15px;
-  width: 30%;
+  width: 40%;
 }
 ul li {
   display: block;
