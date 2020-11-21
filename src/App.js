@@ -36,29 +36,22 @@ class App extends Component {
     });
 
   render() {
+    let person = null;
+    if (this.state.showPerson) {
+      person = (
+        <div>
+          {this.state.person.map((person) => {
+            return <Person name={person.name} age={person.age} />;
+          })}
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <h1>Hi, I am from App.js file</h1>
         <button onClick={this.showPersonHandler}>Switch Button</button>
-        {this.state.showPerson ? (
-          <div>
-            <Person
-              name={this.state.person[0].name}
-              age={this.state.person[0].age}
-            ></Person>
-            <Person
-              name={this.state.person[1].name}
-              age={this.state.person[1].age}
-              change={this.nameChangeHandler}
-            >
-              <li>I am younger than Ayush</li>
-            </Person>
-            <Person
-              name={this.state.person[2].name}
-              age={this.state.person[2].age}
-            />
-          </div>
-        ) : null}
+        {person}
       </div>
     );
   }
