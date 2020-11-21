@@ -1,3 +1,11 @@
+.Person {
+  display: block;
+  border: 0.5px solid grey;
+  box-shadow: 5px 2px 5px 2px grey;
+  margin: 50px auto;
+  padding-bottom: 15px;
+  width: 30%;
+}
 ul li {
   display: block;
 }
