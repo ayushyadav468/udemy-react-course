@@ -41,6 +41,15 @@ class App extends Component {
   };
 
   render() {
+    const style = {
+      backgroundColor: 'green',
+      color: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer',
+    };
+
     let person = null;
     if (this.state.showPerson) {
       person = (
@@ -58,12 +67,23 @@ class App extends Component {
           })}
         </div>
       );
+      style.backgroundColor = 'red';
+      style.color = 'black';
+    }
+
+    const firstClass = [];
+    if (this.state.persons.length <= 2) {
+      firstClass.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      firstClass.push('bold');
     }
 
     return (
       <div className="App">
         <h1>Hi, I am from App.js file</h1>
-        <button className="btn" onClick={this.showPersonHandler}>
+        <p className={firstClass.join(' ')}>This is really working</p>
+        <button className="btn" onClick={this.showPersonHandler} style={style}>
           Switch Button
         </button>
         {person}
