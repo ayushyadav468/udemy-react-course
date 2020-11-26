@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person';
+import Persons from '../Persons/Persons';
+import Cockpit from '../Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -30,62 +31,35 @@ class App extends Component {
     const personIndex = this.state.persons.findIndex((p) => {
       return p.id === id;
     });
-
     const personToBeUpdated = { ...this.state.persons[personIndex] };
     personToBeUpdated.name = event.target.value;
-
     const updatedPerson = [...this.state.persons];
     updatedPerson[personIndex] = personToBeUpdated;
-
     this.setState({ persons: updatedPerson });
   };
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    };
-
     let person = null;
     if (this.state.showPerson) {
       person = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                key={person.id}
-                name={person.name}
-                age={person.age}
-                click={() => this.deletePersonHandler(index)}
-                changed={(event) => this.nameChangeHandler(event, person.id)}
-              />
-            );
-          })}
+          {/* render list of person */}
+          <Persons
+            persons={this.state.persons}
+            click={this.deletePersonHandler}
+            changed={this.nameChangeHandler}
+          />
         </div>
       );
-      style.backgroundColor = 'red';
-      style.color = 'black';
-    }
-
-    const firstClass = [];
-    if (this.state.persons.length <= 2) {
-      firstClass.push('red');
-    }
-    if (this.state.persons.length <= 1) {
-      firstClass.push('bold');
     }
 
     return (
       <div className="App">
-        <h1>Hi, I am from App.js file</h1>
-        <p className={firstClass.join(' ')}>This is really working</p>
-        <button className="btn" onClick={this.showPersonHandler} style={style}>
-          Switch Button
-        </button>
+        <Cockpit
+          showPerson={this.state.showPerson}
+          persons={this.state.persons}
+          click={this.showPersonHandler}
+        />
         {person}
       </div>
     );
